@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Tickets - Movie Night</title>
+  <link rel="icon" href="./images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="top-nav">
+      <a href="index.html">
+        <img src="./images/logo.png" class="logo">
+      </a>
+
+      <div class="top-index">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="#" id="loginBtn">Log in</a>
+      </div>
+
+      <i class="fas fa-bars" id="menuBtn"></i>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <h2 class="headline-text">Book Your Tickets</h2>
+
+  <!-- STEP 1 -->
+  <div class="date-n-cinema">
+    <input type="date" class="input-date">
+    <select>
+      <option disabled selected>Select Multiplex</option>
+      <option>PVR</option>
+      <option>INOX</option>
+      <option>Cinepolis</option>
+    </select>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="date-n-cinema">
+    <select>
+      <option disabled selected>Select Movie</option>
+      <option>Avatar</option>
+      <option>Drishyam 2</option>
+      <option>Black Panther</option>
+    </select>
+
+    <select>
+      <option disabled selected>Show Time</option>
+      <option>10:30 AM</option>
+      <option>1:30 PM</option>
+      <option>7:30 PM</option>
+    </select>
+  </div>
+
+  <!-- SEAT SELECTION -->
+  <h3 class="headline-text">Select Your Seats</h3>
+
+  <div class="seat-container">
+    <div class="screen">SCREEN</div>
+    <div class="seats" id="seatArea"></div>
+  </div>
+
+  <!-- PRICE + PROCEED -->
+  <div style="text-align:center; margin-top:30px;">
+    <h3>Total Price: ₹ <span id="totalPrice">0</span></h3>
+    <button class="type-submit" onclick="goToPayment()">Proceed To Pay</button>
+  </div>
+
+</main>
+
+<footer class="footer">
+  © Movie Night
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="authModal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Login</h2>
+    <input type="text" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button class="type-submit">Login</button>
+  </div>
+</div>
+
+<script>
+/* Generate Seats + Price Calculation */
+const seatArea = document.getElementById('seatArea');
+let count = 0;
+const pricePerSeat = 150;
+
+for(let i=1;i<=40;i++){
+  const seat=document.createElement('div');
+  seat.className='seat';
+
+  seat.onclick=()=>{
+    seat.classList.toggle('selected');
+    if(seat.classList.contains('selected')){
+      count++;
+    }else{
+      count--;
+    }
+    document.getElementById('totalPrice').innerText = count * pricePerSeat;
+  }
+
+  seatArea.appendChild(seat);
+}
+
+function goToPayment(){
+  localStorage.setItem("ticketPrice", document.getElementById('totalPrice').innerText);
+  localStorage.setItem("seatCount", count);
+  window.location.href="payment.html";
+}
+
+/* Login Modal */
+const modal = document.getElementById('authModal');
+document.getElementById('loginBtn').onclick = () => modal.style.display = 'flex';
+document.querySelector('.close').onclick = () => modal.style.display = 'none';
+
+/* Mobile Menu */
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.querySelector('.top-index');
+menuBtn.onclick = () => navLinks.classList.toggle('show');
+</script>
+
+</body>
+</html>

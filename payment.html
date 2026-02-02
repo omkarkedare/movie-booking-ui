@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - Movie Night</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+<main style="text-align:center; margin-top:120px;">
+  <h2>Payment Page</h2>
+
+  <div class="date-n-cinema" style="justify-content:center;">
+    <input placeholder="Card Number">
+    <input placeholder="Card Holder Name">
+    <input placeholder="MM/YY">
+    <input placeholder="CVV">
+  </div>
+
+  <h3>Amount to Pay: ₹ <span id="payAmount"></span></h3>
+
+  <button class="type-submit" onclick="confirmPayment()">Pay Now</button>
+</main>
+
+<script>
+/* Show price from bookings page */
+document.getElementById('payAmount').innerText =
+  localStorage.getItem("ticketPrice");
+
+/* On payment */
+function confirmPayment(){
+  window.location.href = "ticket.html";
+}
+</script>
+
+</body>
+</html>

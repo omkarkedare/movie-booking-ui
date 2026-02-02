@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Ticket - Movie Night</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+<main style="text-align:center; margin-top:120px;">
+  <h2>🎟 Booking Confirmed</h2>
+
+  <div class="showing-movie-poster" style="max-width:400px;margin:auto;padding:20px;">
+    <h3>Movie Night Cinema</h3>
+    <p>Seats Booked: <span id="seats"></span></p>
+    <p>Total Paid: ₹ <span id="amount"></span></p>
+    <p style="margin-top:10px;">Show this ticket at the counter</p>
+  </div>
+
+  <a href="index.html" class="type-submit" style="text-decoration:none;padding:10px 20px;display:inline-block;margin-top:20px;">
+    Go To Home
+  </a>
+</main>
+
+<script>
+document.getElementById('seats').innerText =
+  localStorage.getItem("seatCount");
+
+document.getElementById('amount').innerText =
+  localStorage.getItem("ticketPrice");
+</script>
+
+</body>
+</html>
