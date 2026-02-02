@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Tickets - Movie Night</title>
-  <link rel="icon" href="./images/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 </head>
 
 <body>
@@ -32,18 +31,24 @@
 <main>
   <h2 class="headline-text">Book Your Tickets</h2>
 
-  <!-- STEP 1 -->
+  <!-- STEP 1 : CITY & PVR -->
   <div class="date-n-cinema">
-    <input type="date" class="input-date">
-    <select>
-      <option disabled selected>Select Multiplex</option>
-      <option>PVR</option>
-      <option>INOX</option>
-      <option>Cinepolis</option>
+    <select id="citySelect">
+      <option disabled selected>Select City</option>
+      <option value="mumbai">Chh.Sambhajinagar, Maharashtra</option>
+      <option value="pune">Pune, Maharashtra</option>
+      <option value="Jalna">Jalna, Maharashtra</option>
+      <option value="mumbai">Mumbai, Maharashtra</option>
     </select>
+
+    <select id="pvrSelect">
+      <option disabled selected>Select PVR</option>
+    </select>
+
+    <input type="date">
   </div>
 
-  <!-- STEP 2 -->
+  <!-- STEP 2 : MOVIE & TIME -->
   <div class="date-n-cinema">
     <select>
       <option disabled selected>Select Movie</option>
@@ -60,15 +65,14 @@
     </select>
   </div>
 
-  <!-- SEAT SELECTION -->
+  <!-- SEATS -->
   <h3 class="headline-text">Select Your Seats</h3>
-
   <div class="seat-container">
     <div class="screen">SCREEN</div>
     <div class="seats" id="seatArea"></div>
   </div>
 
-  <!-- PRICE + PROCEED -->
+  <!-- PRICE -->
   <div style="text-align:center; margin-top:30px;">
     <h3>Total Price: ₹ <span id="totalPrice">0</span></h3>
     <button class="type-submit" onclick="goToPayment()">Proceed To Pay</button>
@@ -76,9 +80,7 @@
 
 </main>
 
-<footer class="footer">
-  © Movie Night
-</footer>
+<footer class="footer">©️ Movie Night</footer>
 
 <!-- LOGIN MODAL -->
 <div class="modal" id="authModal">
@@ -92,7 +94,44 @@
 </div>
 
 <script>
-/* Generate Seats + Price Calculation */
+/* ---------- CITY → PVR MAPPING ---------- */
+const pvrData = {
+  chh.sambhajinagar: [
+    "PVR Prozone Mall, Api Corner",
+    "PVR Tapadia , CIDCo",
+    "PVR Reliance,  Akashwani"
+  ],
+  pune: [
+    "PVR Seasons Mall, Magarpatta",
+    "PVR Pavilion Mall, Shivajinagar",
+    "PVR Kumar Pacific Mall, Swargate"
+  ],
+  jalna: [
+    "PVR Krishna Mall, Ring Road",
+    "PVR Lokhandi Pool, Rahman Ganj",
+    "PVR Gandhinagar Road, Gandhinagar"
+  ],
+  mumbai: [
+    "PVR Phoenix Marketcity, Kurla",
+    "PVR Oberoi Mall, Goregaon",
+    "PVR Citi Mall, Andheri"
+  ]
+};
+
+const citySelect = document.getElementById("citySelect");
+const pvrSelect = document.getElementById("pvrSelect");
+
+citySelect.addEventListener("change", function(){
+  const city = this.value;
+  pvrSelect.innerHTML = '<option disabled selected>Select PVR</option>';
+  pvrData[city].forEach(pvr => {
+    const option = document.createElement("option");
+    option.textContent = pvr;
+    pvrSelect.appendChild(option);
+  });
+});
+
+/* ---------- SEATS + PRICE ---------- */
 const seatArea = document.getElementById('seatArea');
 let count = 0;
 const pricePerSeat = 150;
@@ -103,11 +142,7 @@ for(let i=1;i<=40;i++){
 
   seat.onclick=()=>{
     seat.classList.toggle('selected');
-    if(seat.classList.contains('selected')){
-      count++;
-    }else{
-      count--;
-    }
+    count += seat.classList.contains('selected') ? 1 : -1;
     document.getElementById('totalPrice').innerText = count * pricePerSeat;
   }
 
@@ -120,12 +155,12 @@ function goToPayment(){
   window.location.href="payment.html";
 }
 
-/* Login Modal */
+/* ---------- LOGIN MODAL ---------- */
 const modal = document.getElementById('authModal');
 document.getElementById('loginBtn').onclick = () => modal.style.display = 'flex';
 document.querySelector('.close').onclick = () => modal.style.display = 'none';
 
-/* Mobile Menu */
+/* ---------- MOBILE MENU ---------- */
 const menuBtn = document.getElementById('menuBtn');
 const navLinks = document.querySelector('.top-index');
 menuBtn.onclick = () => navLinks.classList.toggle('show');
