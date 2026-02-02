@@ -30,8 +30,9 @@
 <main>
   <h2 class="headline-text">Book Your Tickets</h2>
 
-  <!-- CITY & PVR -->
+  <!-- CITY, PVR, DATE, SHOWTIME -->
   <div class="date-n-cinema">
+
     <select id="citySelect">
       <option disabled selected>Select City</option>
       <option value="chh_sambhajinagar">Chh. Sambhajinagar, Maharashtra</option>
@@ -45,16 +46,16 @@
     </select>
 
     <input type="date">
-  </div>
 
     <select>
       <option disabled selected>Show Time</option>
       <option>10:30 AM</option>
       <option>1:30 PM</option>
+      <option>4:30 PM</option>
       <option>7:30 PM</option>
-      <option>04:30 PM</option>
-      <option>09:45 PM</option>
+      <option>9:45 PM</option>
     </select>
+
   </div>
 
   <!-- SEATS -->
@@ -69,6 +70,7 @@
     <h3>Total Price: ₹ <span id="totalPrice">0</span></h3>
     <button class="type-submit" onclick="goToPayment()">Proceed To Pay</button>
   </div>
+
 </main>
 
 <footer class="footer">©️ Movie Night</footer>
