@@ -208,3 +208,10 @@ input, select{
   }
   .top-index.show{ display:flex; }
 }
+.one-row{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+}
