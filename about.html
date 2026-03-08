@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Movie Night</title>
+  <link rel="icon" href="./images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="top-nav">
+      <a href="index.html">
+        <img src="./images/logo.png" class="logo">
+      </a>
+
+      <div class="top-index">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="#" id="loginBtn">Log in</a>
+      </div>
+
+      <i class="fas fa-bars" id="menuBtn"></i>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <h2 class="headline-text">About Movie Night</h2>
+
+  <section class="main-section">
+
+    <p style="text-align:center; max-width:800px; margin:20px auto; color:#9aa0a6;">
+      Movie Night is your one-stop platform to discover movies, check show timings,
+      and book tickets seamlessly. We aim to provide a smooth and modern
+      movie booking experience for cinema lovers.
+    </p>
+
+    <h3 class="headline-text">Features</h3>
+
+    <div class="feature-items">
+      <i class="fas fa-ticket-alt"></i>
+      <div>
+        <h4>Easy Ticket Booking</h4>
+        <p>Book tickets online for any cinema in seconds.</p>
+      </div>
+    </div>
+
+    <div class="feature-items">
+      <i class="fas fa-film"></i>
+      <div>
+        <h4>Upcoming Movies</h4>
+        <p>Stay updated with new and upcoming releases.</p>
+      </div>
+    </div>
+
+    <div class="feature-items">
+      <i class="fas fa-thumbs-up"></i>
+      <div>
+        <h4>Ratings & Reviews</h4>
+        <p>Check ratings before you book your show.</p>
+      </div>
+    </div>
+
+    <h3 class="headline-text" style="margin-top:40px;">Made By</h3>
+
+    <div style="text-align:center; margin-top:20px;">
+      <h4>Omkar Kedare</h4>
+      <p>Student at Shiv Chhatrapati College</p>
+      <p>PRN - 2425000307</p>
+    </div>
+
+  </section>
+</main>
+
+<footer class="footer">
+  © Movie Night
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="authModal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Login</h2>
+    <input type="text" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button class="type-submit">Login</button>
+  </div>
+</div>
+
+<script>
+/* Login Modal */
+const modal = document.getElementById('authModal');
+document.getElementById('loginBtn').onclick = () => modal.style.display = 'flex';
+document.querySelector('.close').onclick = () => modal.style.display = 'none';
+
+/* Mobile Menu */
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.querySelector('.top-index');
+menuBtn.onclick = () => navLinks.classList.toggle('show');
+</script>
+
+</body>
+</html>

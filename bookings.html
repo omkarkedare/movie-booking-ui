@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Tickets - Movie Night</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar">
+    <div class="top-nav">
+      <a href="index.html">
+        <img src="./images/logo.png" class="logo">
+      </a>
+
+      <div class="top-index">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="#" id="loginBtn">Log in</a>
+      </div>
+
+      <i class="fas fa-bars" id="menuBtn"></i>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <h2 class="headline-text">Book Your Tickets</h2>
+
+  <!-- CITY, PVR, DATE, SHOWTIME -->
+  <div class="date-n-cinema one-row">
+
+    <select id="citySelect">
+      <option disabled selected>Select City</option>
+      <option value="chh_sambhajinagar">Chh. Sambhajinagar, Maharashtra</option>
+      <option value="pune">Pune, Maharashtra</option>
+      <option value="jalna">Jalna, Maharashtra</option>
+      <option value="mumbai">Mumbai, Maharashtra</option>
+    </select>
+
+    <select id="pvrSelect">
+      <option disabled selected>Select PVR</option>
+    </select>
+
+    <input type="date">
+
+    <select>
+      <option disabled selected>Show Time</option>
+      <option>10:30 AM</option>
+      <option>1:30 PM</option>
+      <option>4:30 PM</option>
+      <option>7:30 PM</option>
+      <option>9:45 PM</option>
+    </select>
+
+  </div>
+
+  <!-- SEATS -->
+  <h3 class="headline-text">Select Your Seats</h3>
+  <div class="seat-container">
+    <div class="screen">SCREEN</div>
+    <div class="seats" id="seatArea"></div>
+  </div>
+
+  <!-- PRICE -->
+  <div style="text-align:center; margin-top:30px;">
+    <h3>Total Price: ₹ <span id="totalPrice">0</span></h3>
+    <button class="type-submit" onclick="goToPayment()">Proceed To Pay</button>
+  </div>
+
+</main>
+
+<footer class="footer">©️ Movie Night</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* CITY → PVR */
+  const pvrData = {
+    chh_sambhajinagar: [
+      "PVR Prozone Mall, Api Corner",
+      "PVR Tapadia, CIDCO",
+      "PVR Reliance, Akashwani"
+    ],
+    pune: [
+      "PVR Seasons Mall, Magarpatta",
+      "PVR Pavilion Mall, Shivajinagar",
+      "PVR Kumar Pacific Mall, Swargate"
+    ],
+    jalna: [
+      "PVR Krishna Mall, Ring Road",
+      "PVR Lokhandi Pool, Rahman Ganj",
+      "PVR Gandhinagar Road"
+    ],
+    mumbai: [
+      "PVR Phoenix Marketcity, Kurla",
+      "PVR Oberoi Mall, Goregaon",
+      "PVR Citi Mall, Andheri"
+    ]
+  };
+
+  const citySelect = document.getElementById("citySelect");
+  const pvrSelect = document.getElementById("pvrSelect");
+
+  citySelect.addEventListener("change", function(){
+    const city = this.value;
+    pvrSelect.innerHTML = '<option disabled selected>Select PVR</option>';
+
+    pvrData[city].forEach(pvr => {
+      const option = document.createElement("option");
+      option.textContent = pvr;
+      pvrSelect.appendChild(option);
+    });
+  });
+
+  /* SEATS + PRICE */
+  const seatArea = document.getElementById('seatArea');
+  let count = 0;
+  const pricePerSeat = 150;
+
+  for(let i=1;i<=40;i++){
+    const seat=document.createElement('div');
+    seat.className='seat';
+
+    seat.onclick=()=>{
+      seat.classList.toggle('selected');
+      count += seat.classList.contains('selected') ? 1 : -1;
+      document.getElementById('totalPrice').innerText = count * pricePerSeat;
+    }
+
+    seatArea.appendChild(seat);
+  }
+
+  window.goToPayment = function(){
+    localStorage.setItem("ticketPrice", document.getElementById('totalPrice').innerText);
+    localStorage.setItem("seatCount", count);
+    window.location.href="payment.html";
+  }
+
+});
+</script>
+
+</body>
+</html>
